@@ -1,0 +1,68 @@
+# Clean, simple, compatible and meaningful.
+# Tested on Linux, Unix and Windows under ANSI colors.
+# It is recommended to use with a dark background.
+# Colors: black, red, green, yellow, *blue, magenta, cyan, and white.
+#
+# Mar 2013 Yad Smood (Author of this theme for oh-my-zsh)
+# Apr 2019 Siddharth Kannan
+# Prompt format:
+#
+# PRIVILEGES USER @ MACHINE in DIRECTORY on git:BRANCH STATE [TIME] C:LAST_EXIT_CODE
+# $ COMMAND
+#
+# For example:
+#
+# % ys @ ys-mbp in ~/.oh-my-zsh on git:master x [21:47:42] C:0
+# $
+
+function prompt_ys_help {
+  echo '
+    ys is the prezto equivalent of the ys theme on oh-my-zsh
+
+    Original theme:
+    https://github.com/robbyrussell/oh-my-zsh/wiki/themes#ys
+  '
+}
+
+function prompt_ys_precmd {
+  vcs_info
+  if (( $+functions[git-info] )); then
+    git-info
+  fi
+}
+
+function prompt_ys_setup {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+  prompt_opts=(cr percent sp subst)
+
+  autoload -Uz add-zsh-hook
+  autoload -Uz vcs_info
+
+  add-zsh-hook precmd prompt_ys_precmd
+
+  # Set vcs_info parameters.
+  zstyle ':vcs_info:*' enable git
+  zstyle ':vcs_info:*' check-for-changes true
+  zstyle ':vcs_info:*' stagedstr ' %F{yellow}o%f'
+  zstyle ':vcs_info:*' unstagedstr ' %F{red}x%f'
+  zstyle ':vcs_info:*' formats ' %F{white}on git:%f%F{cyan}%b%f%c%u'
+
+	local exit_code="%(?,,C:%{%F{red}%}%?%{$reset_color%})"
+
+  PROMPT='
+%{%F{blue}%}#%f \
+%(#,%{%F{yellow}%}%{%F{black}%}%n%f,%{%F{cyan}%}%n) \
+%{%F{white}%}@ \
+%{%F{green}%}%m \
+%{%F{white}%}in \
+%{%F{yellow}%}%~%{$reset_color%}\
+${vcs_info_msg_0_}\
+ \
+%{%F{white}%}[%D %*] $exit_code
+%{%F{red}%}$ %{$reset_color%}'
+
+  RPROMPT=''
+}
+
+prompt_ys_setup "$@"
