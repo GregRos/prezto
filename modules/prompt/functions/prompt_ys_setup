@@ -25,7 +25,6 @@ function prompt_ys_help {
 }
 
 function prompt_ys_precmd {
-  vcs_info
   if (( $+functions[git-info] )); then
     git-info
   fi
@@ -41,12 +40,14 @@ function prompt_ys_setup {
 
   add-zsh-hook precmd prompt_ys_precmd
 
-  # Set vcs_info parameters.
-  zstyle ':vcs_info:*' enable git
-  zstyle ':vcs_info:*' check-for-changes true
-  zstyle ':vcs_info:*' stagedstr ' %F{yellow}o%f'
-  zstyle ':vcs_info:*' unstagedstr ' %F{red}x%f'
-  zstyle ':vcs_info:*' formats ' %F{white}on git:%f%F{cyan}%b%f%c%u'
+  # Set git-info parameters.
+  zstyle ':prezto:module:git:info' verbose 'yes'
+  zstyle ':prezto:module:git:info:branch' format '%b'
+  zstyle ':prezto:module:git:info:clean' format ' %F{green}o%f'
+  zstyle ':prezto:module:git:info:dirty' format ' %F{red}x%f'
+  zstyle ':prezto:module:git:info:keys' format \
+    'prompt' ' %F{white}on git:%f%F{cyan}%b%f%D%C' \
+    'rprompt' ''
 
 	local exit_code="%(?,,C:%{%F{red}%}%?%{$reset_color%})"
 
@@ -57,7 +58,7 @@ function prompt_ys_setup {
 %{%F{green}%}%m \
 %{%F{white}%}in \
 %{%F{yellow}%}%~%{$reset_color%}\
-${vcs_info_msg_0_}\
+${git_info[prompt]}\
  \
 %{%F{white}%}[%D %*] $exit_code
 %{%F{red}%}$ %{$reset_color%}'
