@@ -1,0 +1,40 @@
+#
+# Exposes information about the kubernetes environment via the $kubernetes_info associative
+# array. Currently available:
+# - context
+# - namespace
+#
+# Authors:
+#   Siddharth Kannan <mail@siddharthkannan.in>
+#
+
+local context
+local context_format
+local context_formatted
+local namespace
+local namespace_format
+local namespace_formatted
+
+# Clean up previous $kubernetes_info.
+unset kubernetes_info
+typeset -gA kubernetes_info
+
+local kubeconfig=$(kubectl config view -ojson)
+
+context=$(echo "$kubeconfig" | jq -r '.["current-context"]' | awk -F'-' '{ print $NF }')
+namespace=$(echo "$kubeconfig" | jq -r '.["current-context"] as $curctx | .contexts[] | select(.name == $curctx) | .context.namespace')
+
+# Format context.
+kubernetes_info[context]="$context"
+zstyle -s ':prezto:module:kubernetes:info:context' format 'context_format'
+if [[ -n "$context" && -n "$context_format" ]]; then
+  zformat -f context_formatted "$context_format" "C:$context"
+  kubernetes_info[context]="$context_formatted"
+fi
+
+kubernetes_info[namespace]="$namespace"
+zstyle -s ':prezto:module:kubernetes:info:namespace' format 'namespace_format'
+if [[ -n "$namespace" && -n "$namespace_format" ]]; then
+  zformat -f namespace_formatted "$namespace_format" "N:$namespace"
+  kubernetes_info[namespace]="$namespace_formatted"
+fi
