@@ -21,7 +21,7 @@ typeset -gA kubernetes_info
 
 local kubeconfig=$(kubectl config view -ojson)
 
-context=$(echo "$kubeconfig" | jq -r '.["current-context"]' | awk -F'-' '{ print $NF }')
+context=$(echo "$kubeconfig" | jq -r '.["current-context"]')
 namespace=$(echo "$kubeconfig" | jq -r '.["current-context"] as $curctx | .contexts[] | select(.name == $curctx) | .context.namespace')
 
 # Format context.
