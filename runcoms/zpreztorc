@@ -35,12 +35,14 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'completion' \
+  'kubernetes' \
   'git' \
   'prompt' \
   'autosuggestions' \
   'history-substring-search' \
   'syntax-highlighting'
 
+#
 # 'tmux'
 
 #

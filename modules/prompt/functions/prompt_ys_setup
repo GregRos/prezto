@@ -1,20 +1,18 @@
-# ys - a clone of oh-my-zsh's ys prompt
 # Clean, simple, compatible and meaningful.
 # Tested on Linux, Unix and Windows under ANSI colors.
-# It is recommended to use this prompt with a dark background.
+# It is recommended to use with a dark background.
 # Colors: black, red, green, yellow, *blue, magenta, cyan, and white.
 #
 # Mar 2013 Yad Smood (Author of this theme for oh-my-zsh)
 # Apr 2019 Siddharth Kannan
-#
 # Prompt format:
 #
-# PRIVILEGES USER @ MACHINE in DIRECTORY on git:BRANCH STATE [DATE TIME] C:LAST_EXIT_CODE
+# PRIVILEGES USER @ MACHINE in DIRECTORY on git:BRANCH STATE [TIME] C:LAST_EXIT_CODE
 # $ COMMAND
 #
-# Example:
+# For example:
 #
-# # kannan.siddharth @ home-pc in ~/work/notes on git:master x [19-07-18 12:49:08] C:42
+# % ys @ ys-mbp in ~/.oh-my-zsh on git:master x [21:47:42] C:0
 # $
 
 function prompt_ys_help {
@@ -51,6 +49,8 @@ function prompt_ys_setup {
     'prompt' ' %F{white}on git:%f%F{cyan}%b%f%D%C' \
     'rprompt' ''
 
+	local exit_code="%(?,,C:%{%F{red}%}%?%{$reset_color%})"
+
   PROMPT='
 %{%F{blue}%}#%f \
 %(#,%{%F{yellow}%}%{%F{black}%}%n%f,%{%F{cyan}%}%n) \
@@ -60,7 +60,7 @@ function prompt_ys_setup {
 %{%F{yellow}%}%~%{$reset_color%}\
 ${git_info[prompt]}\
  \
-%{%F{white}%}[%D %*] %(?..C:%F{red}$?%f)
+%{%F{white}%}[%D %*] $exit_code
 %{%F{red}%}$ %{$reset_color%}'
 
   RPROMPT=''
