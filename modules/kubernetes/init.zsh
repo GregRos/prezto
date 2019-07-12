@@ -9,11 +9,3 @@
 if (( ! $+commands[kubectl] )); then
   return 1
 fi
-
-if (( ! $+commands[jq] )); then
-  return 1
-fi
-
-if (( ! $+commands[awk] )); then
-  return 1
-fi
