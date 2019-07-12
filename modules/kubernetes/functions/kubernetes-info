@@ -21,8 +21,8 @@ typeset -gA kubernetes_info
 
 local kubeconfig=$(kubectl config view -ojson)
 
-context=$(echo "$kubeconfig" | jq -r '.["current-context"]')
-namespace=$(echo "$kubeconfig" | jq -r '.["current-context"] as $curctx | .contexts[] | select(.name == $curctx) | .context.namespace')
+context=$(kubectl config view --minify --output 'jsonpath={..current-context}')
+namespace=$(kubectl config view --minify --output 'jsonpath={..namespace}')
 
 # Format context.
 kubernetes_info[context]="$context"
