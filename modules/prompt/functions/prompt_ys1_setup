@@ -14,7 +14,7 @@
 #
 # For example:
 #
-# # ~/work/notes k8s:mercari-dev ns:default on git:master x C:42
+# # ~/work/notes k8s:work-dev ns:default on git:master x C:42
 # $
 #
 # Related documents:
