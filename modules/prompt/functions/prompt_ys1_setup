@@ -1,31 +1,32 @@
-# ys1 - modified ys prompt
-# Clean, simple, compatible and meaningful.
-# Tested on Linux, Unix and Windows under ANSI colors.
-# It is recommended to use with a dark background.
-# Colors: black, red, green, yellow, *blue, magenta, cyan, and white.
+# ys1 - modified ys
+# Clean, simple, ASCII-only zsh prompt
+# Tested on Linux and Unix
+# Colors: blue, yellow, green, red, cyan, white
 #
-# Mar 2013 Yad Smood (Author of the base theme for oh-my-zsh)
-# Apr 2019 Siddharth Kannan
+# Jul 2019 Siddharth Kannan
+#
+# Based on oh-my-zsh's ys theme [https://git.io/fj1wS]
+# Forked from prezto's ys theme [https://git.io/fj1wH]
 #
 # Prompt format:
 #
-# # DIRECTORY k8s:context ns:namespace on git:BRANCH STATE C:LAST_EXIT_CODE
-# $ COMMAND
+# # directory k8s:context ns:namespace on git:branch state C:last_exit_code
+# $ command
 #
-# For example:
+# Example:
 #
 # # ~/work/notes k8s:work-dev ns:default on git:master x C:42
 # $
 #
-# Related documents:
+# Useful documents:
 # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Conditional-Substrings-in-Prompts
 # http://aperiodic.net/phil/prompt/
 
 function prompt_ys1_help {
   echo '
-    ys1 is the prezto equivalent of the ys1 theme on oh-my-zsh
+    ys1 is a modified version of the ys theme on oh-my-zsh
 
-    Original theme:
+    Based on ys (an oh-my-zsh theme):
     https://github.com/robbyrussell/oh-my-zsh/wiki/themes#ys1
   '
 }
