@@ -51,14 +51,6 @@ function prompt_ys1_setup {
 
   add-zsh-hook precmd prompt_ys1_precmd
 
-  # Set git-info parameters.
-  zstyle ':prezto:module:git:info' verbose 'yes'
-  zstyle ':prezto:module:git:info:branch' format '%b'
-  zstyle ':prezto:module:git:info:clean' format ' %F{green}o%f'
-  zstyle ':prezto:module:git:info:dirty' format ' %F{red}x%f'
-  zstyle ':prezto:module:git:info:keys' format \
-    'prompt' ' %F{white}on git:%f%F{cyan}%b%f%D%C' \
-    'rprompt' ''
 
   zstyle ':prezto:module:kubernetes:info:context' format ' k8s:%F{cyan}%C%f'
   zstyle ':prezto:module:kubernetes:info:namespace' format ' ns:%F{cyan}%N%f'
@@ -68,7 +60,6 @@ function prompt_ys1_setup {
 %{%F{yellow}%}%~%f\
 ${kubernetes_info[context]}\
 ${kubernetes_info[namespace]}\
-${git_info[prompt]}\
  \
 %(?..C:%F{red}$?%f)
 %{%F{red}%}$ %{$reset_color%}'

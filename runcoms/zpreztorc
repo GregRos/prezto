@@ -36,7 +36,6 @@ zstyle ':prezto:load' pmodule \
   'utility' \
   'completion' \
   'kubernetes' \
-  'git' \
   'prompt' \
   'autosuggestions' \
   'history-substring-search' \
